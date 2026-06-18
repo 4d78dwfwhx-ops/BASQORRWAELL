@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>باسكر - قطع غيار السيارات الأصلية</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- الشريط العلوي -->
+    <header class="main-header">
+        <div class="top-bar">
+            <div class="container">
+                <span><i class="fas fa-phone"></i> 9200XXXXX</span>
+                <span><i class="fas fa-envelope"></i> support@basqor.com</span>
+                <div class="user-actions">
+                    <a href="/login"><i class="fas fa-user"></i> تسجيل الدخول</a>
+                    <a href="/cart"><i class="fas fa-shopping-cart"></i> السلة (<span id="cart-count">0</span>)</a>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="main-nav">
+            <div class="container">
+                <div class="logo">
+                    <h1>باسكر</h1>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="/">الرئيسية</a></li>
+                    <li><a href="/shop">المتجر</a></li>
+                    <li><a href="/categories">الأقسام</a></li>
+                    <li><a href="/offers">العروض</a></li>
+                    <li><a href="/blog">المدونة</a></li>
+                    <li><a href="/club">نادي باسكر</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- قسم البحث عن قطع الغيار -->
+    <section class="hero-search">
+        <div class="container">
+            <h2>ابحث عن قطع غيار سيارتك</h2>
+            <div class="search-box">
+                <div class="vehicle-selector">
+                    <select id="brand-select">
+                        <option value="">اختر الماركة</option>
+                        <option value="toyota">تويوتا</option>
+                        <option value="hyundai">هيونداي</option>
+                        <option value="nissan">نيسان</option>
+                        <option value="kia">كيا</option>
+                        <option value="ford">فورد</option>
+                        <option value="chevrolet">شيفروليه</option>
+                        <option value="mercedes">مرسيدس بنز</option>
+                        <option value="bmw">بي إم دبليو</option>
+                        <option value="audi">أودي</option>
+                        <option value="volkswagen">فولكس فاجن</option>
+                    </select>
+                    
+                    <select id="model-select" disabled>
+                        <option value="">اختر الموديل</option>
+                    </select>
+                    
+                    <select id="engine-select" disabled>
+                        <option value="">اختر المحرك</option>
+                    </select>
+                </div>
+                
+                <div class="alternative-search">
+                    <p>أو ابحث باستخدام:</p>
+                    <input type="text" placeholder="رقم القطعة أو اسمها">
+                    <button class="btn-search"><i class="fas fa-search"></i> بحث</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الأقسام الرئيسية -->
+    <section class="categories-section">
+        <div class="container">
+            <h3>تصفح حسب القسم</h3>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <i class="fas fa-oil-can"></i>
+                    <h4>الزيوت والسوائل</h4>
+                    <p>زيوت المحرك، سوائل الفرامل، وغيرها</p>
+                </div>
+                
+                <div class="category-card">
+                    <i class="fas fa-circle-notch"></i>
+                    <h4>الفرامل</h4>
+                    <p>أقراص الفرامل، تيل الفرامل، طقم الفرامل</p>
+                </div>
+                
+                <div class="category-card">
+                    <i class="fas fa-filter"></i>
+                    <h4>الفلاتر</h4>
+                    <p>فلتر الزيت، فلتر الهواء، فلتر الوقود</p>
+                </div>
+                
+                <div class="category-card">
+                    <i class="fas fa-car-battery"></i>
+                    <h4>الكهرباء</h4>
+                    <p>البطاريات، الدينامو، المارش</p>
+                </div>
+                
+                <div class="category-card">
+                    <i class="fas fa-cogs"></i>
+                    <h4>المحرك</h4>
+                    <p>بواجي، سير الموتور، طرمبة المياه</p>
+                </div>
+                
+                <div class="category-card">
+                    <i class="fas fa-snowflake"></i>
+                    <h4>التكييف والتبريد</h4>
+                    <p>كومبروسر التكييف، الرديتر</p>
+                </div>
+                
+                <div class="category-card">
+                    <i class="fas fa-tire"></i>
+                    <h4>الإطارات والعجلات</h4>
+                    <p>إطارات صيفية وشتوية، جنوط</p>
+                </div>
+                
+                <div class="category-card">
+                    <i class="fas fa-wrench"></i>
+                    <h4>الأدوات والمعدات</h4>
+                    <p>أدوات الصيانة، معدات الورشة</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- المنتجات الأكثر مبيعاً -->
+    <section class="products-section">
+        <div class="container">
+            <h3>المنتجات الأكثر مبيعاً</h3>
+            <div class="products-grid">
+                <!-- منتج 1 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="images/oil.jpg" alt="زيت محرك">
+                        <span class="discount-badge">-40%</span>
+                    </div>
+                    <div class="product-info">
+                        <h4>زيت محرك 5W-30 - 4 لتر</h4>
+                        <p class="brand">مانول</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(90 تقييم)</span>
+                        </div>
+                        <div class="price">
+                            <span class="old-price">250 ر.س</span>
+                            <span class="new-price">149 ر.س</span>
+                        </div>
+                        <button class="btn-add-cart">أضف للسلة</button>
+                    </div>
+                </div>
+
+                <!-- منتج 2 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="images/brakes.jpg" alt="فرامل">
+                        <span class="discount-badge">-35%</span>
+                    </div>
+                    <div class="product-info">
+                        <h4>طقم فرامل أمامي</h4>
+                        <p class="brand">بوش</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span>(45 تقييم)</span>
+                        </div>
+                        <div class="price">
+                            <span class="old-price">350 ر.س</span>
+                            <span class="new-price">227 ر.س</span>
+                        </div>
+                        <button class="btn-add-cart">أضف للسلة</button>
+                    </div>
+                </div>
+
+                <!-- منتج 3 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="images/battery.jpg" alt="بطارية">
+                    </div>
+                    <div class="product-info">
+                        <h4>بطارية سيارة 12V 60Ah</h4>
+                        <p class="brand">فاتا</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(120 تقييم)</span>
+                        </div>
+                        <div class="price">
+                            <span class="new-price">380 ر.س</span>
+                        </div>
+                        <button class="btn-add-cart">أضف للسلة</button>
+                    </div>
+                </div>
+
+                <!-- منتج 4 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="images/filters.jpg" alt="فلاتر">
+                        <span class="discount-badge">-25%</span>
+                    </div>
+                    <div class="product-info">
+                        <h4>طقم فلاتر شامل</h4>
+                        <p class="brand">مان</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span>(67 تقييم)</span>
+                        </div>
+                        <div class="price">
+                            <span class="old-price">180 ر.س</span>
+                            <span class="new-price">135 ر.س</span>
+                        </div>
+                        <button class="btn-add-cart">أضف للسلة</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- العلامات التجارية -->
+    <section class="brands-section">
+        <div class="container">
+            <h3>علامات تجارية موثوقة</h3>
+            <div class="brands-grid">
+                <div class="brand-item">BOSCH</div>
+                <div class="brand-item">MANNOL</div>
+                <div class="brand-item">TRW</div>
+                <div class="brand-item">ATE</div>
+                <div class="brand-item">HELLA</div>
+                <div class="brand-item">SACHS</div>
+                <div class="brand-item">MEYLE</div>
+                <div class="brand-item">CONTINENTAL</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- لماذا باسكر؟ -->
+    <section class="features-section">
+        <div class="container">
+            <h3>لماذا تختار باسكر؟</h3>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>ضمان الجودة</h4>
+                    <p>جميع المنتجات أصلية 100% مع ضمان المصنع</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-truck"></i>
+                    <h4>توصيل سريع</h4>
+                    <p>توصيل خلال 24-48 ساعة لجميع المدن</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-undo"></i>
+                    <h4>إرجاع سهل</h4>
+                    <p>سياسة إرجاع مرنة خلال 14 يوم</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-headset"></i>
+                    <h4>دعم فني</h4>
+                    <p>فريق متخصص لمساعدتك في اختيار القطع المناسبة</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>عن باسكر</h4>
+                    <p>منصة رائدة لبيع قطع غيار السيارات الأصلية في المملكة العربية السعودية</p>
+                </div>
+                <div class="footer-column">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="/about">من نحن</a></li>
+                        <li><a href="/contact">اتصل بنا</a></li>
+                        <li><a href="/faq">الأسئلة الشائعة</a></li>
+                        <li><a href="/terms">الشروط والأحكام</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>خدمة العملاء</h4>
+                    <ul>
+                        <li><a href="/track-order">تتبع الطلب</a></li>
+                        <li><a href="/returns">سياسة الإرجاع</a></li>
+                        <li><a href="/warranty">الضمان</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>تواصل معنا</h4>
+                    <p><i class="fas fa-phone"></i> 9200XXXXX</p>
+                    <p><i class="fas fa-envelope"></i> support@basqor.com</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 باسكر. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
