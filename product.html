@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>زيت محرك 5W-30 - باسكور</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- نفس الـ Header السابق -->
+    <header class="main-header">
+        <div class="top-bar">
+            <div class="container">
+                <span><i class="fas fa-phone"></i> 9200XXXXX</span>
+                <span><i class="fas fa-envelope"></i> support@basqor.com</span>
+                <div class="user-actions">
+                    <a href="/login"><i class="fas fa-user"></i> تسجيل الدخول</a>
+                    <a href="/cart"><i class="fas fa-shopping-cart"></i> السلة (<span id="cart-count">0</span>)</a>
+                </div>
+            </div>
+        </div>
+        <nav class="main-nav">
+            <div class="container">
+                <div class="logo"><h1>باسكور</h1></div>
+                <ul class="nav-menu">
+                    <li><a href="/">الرئيسية</a></li>
+                    <li><a href="/shop">المتجر</a></li>
+                    <li><a href="/categories">الأقسام</a></li>
+                    <li><a href="/offers">العروض</a></li>
+                    <li><a href="/blog">المدونة</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- مسار التنقل -->
+    <div class="breadcrumb">
+        <div class="container">
+            <a href="/">الرئيسية</a> / 
+            <a href="/shop">المتجر</a> / 
+            <a href="/category/oils">الزيوت</a> / 
+            <span>زيت محرك 5W-30</span>
+        </div>
+    </div>
+
+    <!-- تفاصيل المنتج -->
+    <section class="product-details">
+        <div class="container">
+            <div class="product-layout">
+                <!-- صور المنتج -->
+                <div class="product-gallery">
+                    <div class="main-image">
+                        <img src="images/oil-large.jpg" alt="زيت محرك" id="main-product-image">
+                        <span class="discount-badge">-40%</span>
+                    </div>
+                    <div class="thumbnails">
+                        <img src="images/oil-1.jpg" class="thumb active" onclick="changeImage(this)">
+                        <img src="images/oil-2.jpg" class="thumb" onclick="changeImage(this)">
+                        <img src="images/oil-3.jpg" class="thumb" onclick="changeImage(this)">
+                        <img src="images/oil-4.jpg" class="thumb" onclick="changeImage(this)">
+                    </div>
+                </div>
+
+                <!-- معلومات المنتج -->
+                <div class="product-info-detail">
+                    <span class="product-brand">مانول</span>
+                    <h1>زيت محرك 5W-30 Full Synthetic - 4 لتر</h1>
+                    <div class="product-sku">
+                        <span>رقم المنتج: <strong>OL-MAN-5W30-4L</strong></span>
+                        <span>رقم القطعة الأصلي: <strong>123456789</strong></span>
+                    </div>
+                    
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>(90 تقييم) | 250+ عملية شراء</span>
+                    </div>
+
+                    <div class="price-detail">
+                        <span class="old-price">250 ر.س</span>
+                        <span class="new-price">149 ر.س</span>
+                        <span class="save-amount">وفر 101 ر.س</span>
+                    </div>
+
+                    <div class="stock-status in-stock">
+                        <i class="fas fa-check-circle"></i> متوفر في المخزون (45 قطعة)
+                    </div>
+
+                    <div class="quantity-selector">
+                        <label>الكمية:</label>
+                        <button onclick="changeQuantity(-1)">-</button>
+                        <input type="number" id="quantity" value="1" min="1" max="45">
+                        <button onclick="changeQuantity(1)">+</button>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn-add-cart-large" onclick="addProductToCart()">
+                            <i class="fas fa-shopping-cart"></i> أضف إلى السلة
+                        </button>
+                        <button class="btn-buy-now">
+                            <i class="fas fa-bolt"></i> اشتر الآن
+                        </button>
+                        <button class="btn-wishlist">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+
+                    <div class="delivery-info">
+                        <h4><i class="fas fa-truck"></i> التوصيل</h4>
+                        <ul>
+                            <li>توصيل مجاني للطلبات فوق 200 ر.س</li>
+                            <li>التوصيل خلال 24-48 ساعة</li>
+                            <li>التوصيل لجميع مدن المملكة</li>
+                        </ul>
+                    </div>
+
+                    <div class="guarantee-info">
+                        <h4><i class="fas fa-shield-alt"></i> الضمان</h4>
+                        <ul>
+                            <li>ضمان المصنع الأصلي</li>
+                            <li>إرجاع مجاني خلال 14 يوم</li>
+                            <li>منتج أصلي 100%</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- تبويبات التفاصيل -->
+            <div class="product-tabs">
+                <div class="tab-headers">
+                    <button class="tab-btn active" onclick="openTab(event, 'description')">الوصف</button>
+                    <button class="tab-btn" onclick="openTab(event, 'specs')">المواصفات</button>
+                    <button class="tab-btn" onclick="openTab(event, 'compatibility')">التوافق</button>
+                    <button class="tab-btn" onclick="openTab(event, 'reviews')">التقييمات (90)</button>
+                </div>
+
+                <div id="description" class="tab-content active">
+                    <h3>وصف المنتج</h3>
+                    <p>زيت محرك صناعي بالكامل من مانول بتقنية متطورة يوفر حماية فائقة للمحرك في جميع ظروف التشغيل.</p>
+                    <h4>المميزات:</h4>
+                    <ul>
+                        <li>حماية ممتازة من التآكل والصدأ</li>
+                        <li>استهلاك وقود أقل</li>
+                        <li>أداء ممتاز في درجات الحرارة المنخفضة والمرتفعة</li>
+                        <li>يطيل عمر المحرك</li>
+                        <li>متوافق مع محركات البنزين والديزل</li>
+                    </ul>
+                </div>
+
+                <div id="specs" class="tab-content">
+                    <table class="specs-table">
+                        <tr><th>الماركة</th><td>مانول (Mannol)</td></tr>
+                        <tr><th>اللزوجة</th><td>5W-30</td></tr>
+                        <tr><th>السعة</th><td>4 لتر</td></tr>
+                        <tr><th>النوع</th><td>صناعي بالكامل (Full Synthetic)</td></tr>
+                        <tr><th>المواصفات</th><td>API SN, ACEA A3/B4</td></tr>
+                        <tr><th>بلد المنشأ</th><td>ألمانيا</td></tr>
+                        <tr><th>رقم القطعة</th><td>123456789</td></tr>
+                    </table>
+                </div>
+
+                <div id="compatibility" class="tab-content">
+                    <h3>السيارات المتوافق معها هذا المنتج</h3>
+                    <div class="compatibility-list">
+                        <div class="compat-item">
+                            <strong>تويوتا:</strong> كامري (2015-2024)، كورولا (2014-2024)، RAV4 (2016-2024)
+                        </div>
+                        <div class="compat-item">
+                            <strong>هيونداي:</strong> سوناتا (2015-2024)، إلنترا (2016-2024)
+                        </div>
+                        <div class="compat-item">
+                            <strong>كيا:</strong> أوبتيما (2015-2024)، سيراتو (2016-2024)
+                        </div>
+                        <div class="compat-item">
+                            <strong>نيسان:</strong> ألتيما (2015-2024)، سنترا (2016-2024)
+                        </div>
+                    </div>
+                </div>
+
+                <div id="reviews" class="tab-content">
+                    <h3>تقييمات العملاء</h3>
+                    <div class="review-summary">
+                        <div class="review-score">
+                            <span class="score">4.5</span>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span>90 تقييم</span>
+                        </div>
+                    </div>
+
+                    <div class="reviews-list">
+                        <div class="review-item">
+                            <div class="review-header">
+                                <strong>أحمد محمد</strong>
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="review-date">منذ أسبوع</span>
+                            </div>
+                            <p>زيت ممتاز، لاحظت فرق واضح في أداء المحرك وصوت أقل. التوصيل كان سريع.</p>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-header">
+                                <strong>خالد العتيبي</strong>
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="review-date">منذ أسبوعين</span>
+                            </div>
+                            <p>جودة ممتازة وسعر مناسب. أنصح به.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- منتجات مشابهة -->
+    <section class="related-products">
+        <div class="container">
+            <h3>منتجات قد تعجبك</h3>
+            <div class="products-grid">
+                <!-- نفس هيكل المنتجات من الصفحة الرئيسية -->
+            </div>
+        </div>
+    </section>
+
+    <script src="js/product.js"></script>
+</body>
+</html>
