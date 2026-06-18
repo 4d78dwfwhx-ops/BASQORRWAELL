@@ -1,0 +1,23 @@
+-- جدول نقاط العضوية
+CREATE TABLE loyalty_points (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    points INT DEFAULT 0,
+    level ENUM('bronze', 'silver', 'gold', 'platinum') DEFAULT 'bronze',
+    total_earned INT DEFAULT 0,
+    total_redeemed INT DEFAULT 0,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- جدول سجل النقاط
+CREATE TABLE points_history (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    points INT NOT NULL,
+    type ENUM('earned', 'redeemed', 'bonus', 'expired'),
+    description VARCHAR(255),
+    reference_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
