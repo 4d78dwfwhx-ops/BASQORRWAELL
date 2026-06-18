@@ -21,3 +21,143 @@ CREATE TABLE points_history (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
+<?php
+// api/loyalty.php
+require_once 'config.php';
+
+class LoyaltySystem {
+    private $pdo;
+    
+    // مستويات العضوية
+    const LEVELS = [
+        'bronze' => ['min' => 0, 'max' => 999, 'discount' => 0, 'name' => 'برونزي'],
+        'silver' => ['min' => 1000, 'max' => 4999, 'discount' => 5, 'name' => 'فضي'],
+        'gold' => ['min' => 5000, 'max' => 14999, 'discount' => 10, 'name' => 'ذهبي'],
+        'platinum' => ['min' => 15000, 'max' => PHP_INT_MAX, 'discount' => 15, 'name' => 'بلاتيني']
+    ];
+    
+    public function __construct($pdo) {
+        $this->pdo = $pdo;
+    }
+    
+    // إضافة نقاط بعد الشراء
+    public function addPoints($userId, $orderAmount, $orderId) {
+        // نقطة واحدة لكل 10 ريالات
+        $points = floor($orderAmount / 10);
+        
+        $stmt = $this->pdo->prepare("
+            INSERT INTO points_history (user_id, points, type, description, reference_id) 
+            VALUES (?, ?, 'earned', ?, ?)
+        ");
+        $stmt->execute([$userId, $points, "نقاط من طلب #$orderId", $orderId]);
+        
+        // تحديث إجمالي النقاط
+        $this->pdo->prepare("
+            UPDATE loyalty_points 
+            SET points = points + ?, 
+                total_earned = total_earned + ?,
+                level = (
+                    CASE 
+                        WHEN total_earned + ? >= 15000 THEN 'platinum'
+                        WHEN total_earned + ? >= 5000 THEN 'gold'
+                        WHEN total_earned + ? >= 1000 THEN 'silver'
+                        ELSE 'bronze'
+                    END
+                )
+            WHERE user_id = ?
+        ")->execute([$points, $points, $points, $points, $points, $userId]);
+        
+        return $points;
+    }
+    
+    // استبدال النقاط بخصم
+    public function redeemPoints($userId, $points) {
+        $stmt = $this->pdo->prepare("SELECT points FROM loyalty_points WHERE user_id = ?");
+        $stmt->execute([$userId]);
+        $current = $stmt->fetch()['points'] ?? 0;
+        
+        if ($current < $points) {
+            return false;
+        }
+        
+        // كل 100 نقطة = 10 ريالات
+        $discount = ($points / 100) * 10;
+        
+        $this->pdo->prepare("
+            INSERT INTO points_history (user_id, points, type, description) 
+            VALUES (?, ?, 'redeemed', ?)
+        ")->execute([$userId, $points, "استبدال نقاط بخصم $discount ريال"]);
+        
+        $this->pdo->prepare("
+            UPDATE loyalty_points 
+            SET points = points - ?, total_redeemed = total_redeemed + ? 
+            WHERE user_id = ?
+        ")->execute([$points, $points, $userId]);
+        
+        return $discount;
+    }
+    
+    // الحصول على معلومات العضو
+    public function getMemberInfo($userId) {
+        $stmt = $this->pdo->prepare("SELECT * FROM loyalty_points WHERE user_id = ?");
+        $stmt->execute([$userId]);
+        $member = $stmt->fetch();
+        
+        if (!$member) {
+            // إنشاء سجل جديد
+            $this->pdo->prepare("INSERT INTO loyalty_points (user_id) VALUES (?)")->execute([$userId]);
+            return $this->getMemberInfo($userId);
+        }
+        
+        $level = self::LEVELS[$member['level']];
+        $member['level_name'] = $level['name'];
+        $member['discount_percent'] = $level['discount'];
+        $member['next_level'] = $this->getNextLevel($member['level'], $member['total_earned']);
+        
+        return $member;
+    }
+    
+    private function getNextLevel($currentLevel, $totalEarned) {
+        $levels = array_keys(self::LEVELS);
+        $currentIndex = array_search($currentLevel, $levels);
+        
+        if ($currentIndex < count($levels) - 1) {
+            $nextLevel = $levels[$currentIndex + 1];
+            $nextInfo = self::LEVELS[$nextLevel];
+            return [
+                'name' => $nextInfo['name'],
+                'points_needed' => $nextInfo['min'] - $totalEarned
+            ];
+        }
+        
+        return null;
+    }
+}
+
+// استخدام النظام
+$action = $_GET['action'] ?? 'info';
+$userId = $_SESSION['user_id'] ?? 0;
+
+if (!$userId) {
+    jsonResponse(['success' => false, 'message' => 'يجب تسجيل الدخول'], 401);
+}
+
+$loyalty = new LoyaltySystem($pdo);
+
+switch ($action) {
+    case 'info':
+        jsonResponse(['success' => true, 'member' => $loyalty->getMemberInfo($userId)]);
+        break;
+        
+    case 'redeem':
+        $points = (int)($_POST['points'] ?? 0);
+        $discount = $loyalty->redeemPoints($userId, $points);
+        
+        if ($discount) {
+            jsonResponse(['success' => true, 'discount' => $discount]);
+        } else {
+            jsonResponse(['success' => false, 'message' => 'نقاط غير كافية'], 400);
+        }
+        break;
+}
+?>
