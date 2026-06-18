@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>سلة التسوق - باسكور</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- نفس الـ Header -->
+
+    <section class="cart-section">
+        <div class="container">
+            <h2>سلة التسوق</h2>
+            
+            <div class="cart-layout">
+                <!-- قائمة المنتجات -->
+                <div class="cart-items">
+                    <div class="cart-item">
+                        <img src="images/oil.jpg" alt="زيت محرك">
+                        <div class="item-info">
+                            <h4>زيت محرك 5W-30 - 4 لتر</h4>
+                            <p>الماركة: مانول</p>
+                            <p>رقم المنتج: OL-MAN-5W30-4L</p>
+                        </div>
+                        <div class="item-quantity">
+                            <button onclick="updateQuantity(this, -1)">-</button>
+                            <input type="number" value="1" readonly>
+                            <button onclick="updateQuantity(this, 1)">+</button>
+                        </div>
+                        <div class="item-price">149 ر.س</div>
+                        <button class="btn-remove" onclick="removeItem(this)">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+
+                    <div class="cart-item">
+                        <img src="images/brakes.jpg" alt="فرامل">
+                        <div class="item-info">
+                            <h4>طقم فرامل أمامي</h4>
+                            <p>الماركة: بوش</p>
+                            <p>رقم المنتج: BR-BOSCH-F001</p>
+                        </div>
+                        <div class="item-quantity">
+                            <button onclick="updateQuantity(this, -1)">-</button>
+                            <input type="number" value="2" readonly>
+                            <button onclick="updateQuantity(this, 1)">+</button>
+                        </div>
+                        <div class="item-price">454 ر.س</div>
+                        <button class="btn-remove" onclick="removeItem(this)">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ملخص الطلب -->
+                <div class="cart-summary">
+                    <h3>ملخص الطلب</h3>
+                    <div class="summary-row">
+                        <span>المجموع الفرعي:</span>
+                        <span>603 ر.س</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>الشحن:</span>
+                        <span>مجاني</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>الضريبة (15%):</span>
+                        <span>90.45 ر.س</span>
+                    </div>
+                    
+                    <div class="coupon-section">
+                        <input type="text" placeholder="كود الخصم">
+                        <button>تطبيق</button>
+                    </div>
+
+                    <div class="summary-total">
+                        <span>الإجمالي:</span>
+                        <span>693.45 ر.س</span>
+                    </div>
+
+                    <button class="btn-checkout" onclick="goToCheckout()">
+                        <i class="fas fa-lock"></i> إتمام الشراء
+                    </button>
+
+                    <div class="payment-methods">
+                        <p>طرق الدفع المتاحة:</p>
+                        <div class="payment-icons">
+                            <i class="fab fa-cc-visa"></i>
+                            <i class="fab fa-cc-mastercard"></i>
+                            <i class="fab fa-cc-apple-pay"></i>
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
