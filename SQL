@@ -1,0 +1,107 @@
+-- جدول الماركات
+CREATE TABLE brands (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name_ar VARCHAR(100) NOT NULL,
+    name_en VARCHAR(100),
+    logo_url VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- جدول الموديلات
+CREATE TABLE models (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    brand_id INT,
+    name_ar VARCHAR(100) NOT NULL,
+    name_en VARCHAR(100),
+    year_from INT,
+    year_to INT,
+    FOREIGN KEY (brand_id) REFERENCES brands(id)
+);
+
+-- جدول المحركات
+CREATE TABLE engines (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    model_id INT,
+    name VARCHAR(50) NOT NULL,
+    displacement DECIMAL(3,1),
+    fuel_type ENUM('بنزين', 'ديزل', 'هجين', 'كهربائي'),
+    power_hp INT,
+    FOREIGN KEY (model_id) REFERENCES models(id)
+);
+
+-- جدول الفئات
+CREATE TABLE categories (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name_ar VARCHAR(100) NOT NULL,
+    name_en VARCHAR(100),
+    parent_id INT NULL,
+    icon_class VARCHAR(50),
+    FOREIGN KEY (parent_id) REFERENCES categories(id)
+);
+
+-- جدول المنتجات
+CREATE TABLE products (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    sku VARCHAR(50) UNIQUE NOT NULL,
+    name_ar VARCHAR(255) NOT NULL,
+    name_en VARCHAR(255),
+    description_ar TEXT,
+    category_id INT,
+    brand_name VARCHAR(100),
+    price DECIMAL(10,2) NOT NULL,
+    discount_price DECIMAL(10,2),
+    stock_quantity INT DEFAULT 0,
+    image_url VARCHAR(255),
+    rating DECIMAL(2,1) DEFAULT 0,
+    reviews_count INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (category_id) REFERENCES categories(id)
+);
+
+-- جدول توافق المنتجات مع السيارات
+CREATE TABLE product_compatibility (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    product_id INT,
+    brand_id INT,
+    model_id INT,
+    engine_id INT,
+    FOREIGN KEY (product_id) REFERENCES products(id),
+    FOREIGN KEY (brand_id) REFERENCES brands(id),
+    FOREIGN KEY (model_id) REFERENCES models(id),
+    FOREIGN KEY (engine_id) REFERENCES engines(id)
+);
+
+-- جدول المستخدمين
+CREATE TABLE users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    phone VARCHAR(20),
+    address TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- جدول الطلبات
+CREATE TABLE orders (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    order_number VARCHAR(50) UNIQUE NOT NULL,
+    total_amount DECIMAL(10,2) NOT NULL,
+    status ENUM('pending', 'processing', 'shipped', 'delivered', 'cancelled') DEFAULT 'pending',
+    shipping_address TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- جدول عناصر الطلب
+CREATE TABLE order_items (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    order_id INT,
+    product_id INT,
+    quantity INT NOT NULL,
+    unit_price DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
